@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Crypass</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="main.js" defer></script>
+  </head>
+  <body>
+    <form id="view-setup" class="view" autocomplete="off" hidden>
+      <h1>Create your master password</h1>
+      <p class="note">
+        It unlocks all your accounts. <strong>If you forget it, they can't be recovered.</strong>
+      </p>
+      <label>
+        Master password
+        <input id="setup-password" type="password" />
+      </label>
+      <label>
+        Confirm master password
+        <input id="setup-confirm" type="password" />
+      </label>
+      <p id="setup-hint" class="note"></p>
+      <p id="setup-error" class="error" role="alert" hidden></p>
+      <div class="actions">
+        <button id="setup-restore" type="button">Restore from backup</button>
+        <span class="spacer"></span>
+        <button id="setup-submit" type="submit" class="primary">Create vault</button>
+      </div>
+    </form>
+
+    <form id="view-unlock" class="view" autocomplete="off" hidden>
+      <h1>Crypass is locked</h1>
+      <label>
+        Master password
+        <input id="unlock-password" type="password" />
+      </label>
+      <p id="unlock-error" class="error" role="alert" hidden></p>
+      <div class="actions">
+        <button id="unlock-restore" type="button">Restore from backup</button>
+        <span class="spacer"></span>
+        <button id="unlock-hello" type="button" hidden>Windows Hello (Ctrl+H)</button>
+        <button id="unlock-submit" type="submit" class="primary">Unlock</button>
+      </div>
+      <footer>Esc to close</footer>
+    </form>
+
+    <div id="view-picker" class="view" hidden>
+      <div class="target">
+        <span class="target-label">Filling into</span>
+        <span id="target" class="target-title"></span>
+      </div>
+
+      <input id="search" type="text" placeholder="Search accounts" autocomplete="off" spellcheck="false" aria-label="Search accounts" />
+
+      <div class="fields" role="group" aria-label="Value to fill">
+        <span id="field-username" class="field">Email</span>
+        <span id="field-password" class="field">Password</span>
+        <span class="hint">Tab to switch</span>
+      </div>
+
+      <ul id="list" role="listbox" aria-label="Accounts"></ul>
+      <p id="error" class="error" role="alert" hidden></p>
+
+      <div class="actions">
+        <button id="add" type="button">Add (Ctrl+N)</button>
+        <button id="edit" type="button">Edit (Ctrl+E)</button>
+        <button id="settings" type="button">Settings</button>
+      </div>
+      <footer>Enter to fill · Esc to close</footer>
+    </div>
+
+    <form id="view-form" class="view" autocomplete="off" hidden>
+      <h1 id="form-title"></h1>
+      <label>
+        Name
+        <input id="form-label" type="text" spellcheck="false" />
+      </label>
+      <label>
+        Email or username
+        <input id="form-username" type="text" spellcheck="false" />
+      </label>
+      <label>
+        Password
+        <input id="form-password" type="password" spellcheck="false" />
+      </label>
+      <div class="password-tools">
+        <label class="check">
+          <input id="form-show" type="checkbox" />
+          Show password
+        </label>
+        <button id="form-generate" type="button">Generate (Ctrl+G)</button>
+      </div>
+      <div id="form-sites-box" hidden>
+        <span class="sites-title">Saved for</span>
+        <ul id="form-sites"></ul>
+      </div>
+      <p id="form-error" class="error" role="alert" hidden></p>
+      <div class="actions">
+        <button id="form-delete" type="button" class="danger">Delete</button>
+        <span class="spacer"></span>
+        <button id="form-cancel" type="button">Cancel</button>
+        <button type="submit" class="primary">Save</button>
+      </div>
+    </form>
+
+    <div id="view-settings" class="view" hidden>
+      <h1>Settings</h1>
+      <p id="settings-note" class="note" role="status" hidden></p>
+      <div class="settings-list">
+        <button id="settings-password" type="button">Change master password</button>
+        <button id="settings-hello" type="button"></button>
+        <button id="settings-restore" type="button">Restore from backup</button>
+      </div>
+      <p id="settings-error" class="error" role="alert" hidden></p>
+      <div class="actions">
+        <button id="settings-back" type="button">Back</button>
+      </div>
+    </div>
+
+    <form id="view-password" class="view" autocomplete="off" hidden>
+      <h1>Change master password</h1>
+      <label>
+        Current master password
+        <input id="password-current" type="password" />
+      </label>
+      <label>
+        New master password
+        <input id="password-new" type="password" />
+      </label>
+      <label>
+        Confirm new master password
+        <input id="password-confirm" type="password" />
+      </label>
+      <p class="note">
+        Backups you've already saved keep opening with the old password. Save a new backup afterwards.
+      </p>
+      <p id="password-error" class="error" role="alert" hidden></p>
+      <div class="actions">
+        <button id="password-cancel" type="button">Cancel</button>
+        <button type="submit" class="primary">Change password</button>
+      </div>
+    </form>
+
+    <form id="view-restore" class="view" autocomplete="off" hidden>
+      <h1>Restore from backup</h1>
+      <p class="note">Backup: <strong id="restore-file"></strong></p>
+      <p id="restore-warning" class="note">
+        <strong>This replaces every account on this PC with the ones in the backup.</strong>
+        The current vault is kept next to it as a .before-restore file.
+      </p>
+      <label>
+        The backup's master password
+        <input id="restore-password" type="password" />
+      </label>
+      <p id="restore-error" class="error" role="alert" hidden></p>
+      <div class="actions">
+        <button id="restore-cancel" type="button">Cancel</button>
+        <button type="submit" class="primary">Restore</button>
+      </div>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "The popup only needs to listen for events; app commands are registered in Rust.",
+  "windows": ["main"],
+  "permissions": ["core:event:default"]
+}
